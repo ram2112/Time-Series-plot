@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "library(ggplot2)\nlibrary(xts)\nlibrary(gridExtra)\n\nagg <- read.csv(\"AggInfl.csv\",na.strings = \"\")\n\nagg <- xts(x = agg[,-1], order.by = agg[,1])\n\nagg <- xts(agg[,-1], order.by=as.Date(paste0(agg[,1],\"-01-01\")))\n\ntemp <- data.frame(index(agg),stack(as.data.frame(coredata(agg))))\n\n\nnames(temp)[1] <- \"Year\"\nnames(temp)[2] <- \"Infl\"\nnames(temp)[3] <- \"Country\"\n\np1 <- ggplot(temp,aes(x =Year, y=Infl, color=Country)) + geom_line()\n\np1 <- p1 + ylim(-10, 30)\n\np2 <- ggplot(temp,aes(x =Year, y=Infl, color=Country)) + geom_point()\n\np2 <- p2 + ylim(-10, 30)\n\np1 <- p1 + ggtitle(\"Aggregate Inflation Line Plot\")\n\np2 <- p2 + ggtitle(\"Aggregate Inflation Point Plot\")\n\np1 <- p1 + \n  theme(axis.title.x=element_blank(),\n        axis.title.y=element_blank(),\n        axis.text.x=element_text(color = \"black\",size=15),\n        axis.text.y=element_text(color=\"black\",size=15),\n        panel.background=element_rect(fill = \"white\"),\n        panel.grid.minor = element_blank(),\n        panel.grid.major = element_blank(),\n        axis.line = element_line(colour = \"black\", size = 1),\n        plot.title = element_text(lineheight=.8, face=\"bold\")) \n\np2 <- p2 + \n  theme(axis.title.x=element_blank(),\n        axis.title.y=element_blank(),\n        axis.text.x=element_text(color = \"black\",size=15),\n        axis.text.y=element_text(color=\"black\",size=15),\n        panel.background=element_rect(fill = \"white\"),\n        panel.grid.minor = element_blank(),\n        panel.grid.major = element_blank(),\n        axis.line = element_line(colour = \"black\", size = 1),\n        plot.title = element_text(lineheight=.8, face=\"bold\")) \n\ngrid.arrange(p1, p2, nrow=2, ncol=1)",
+    "created" : 1482124578740.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "648007632",
+    "id" : "D2C6431F",
+    "lastKnownWriteTime" : 1482124599,
+    "last_content_update" : 1482124599890,
+    "path" : "C:/Users/Sai/Downloads/R Programming/Time Series/TimeSeries.r",
+    "project_path" : "TimeSeries.r",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
